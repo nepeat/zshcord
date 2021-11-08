@@ -32,18 +32,19 @@ func getIcon(command string) (string, string) {
 var startTime = time.Now()
 
 func updateStatus(command string) {
-	parts := strings.Split(command, " ")
+	clean_parts := strings.Split(command, ";")
+	parts := strings.Split(clean_parts[1], " ")
 	icon, iconText := getIcon(parts[0])
 	err := client.SetActivity(client.Activity{
 		State:   fmt.Sprintf("Running `%s`", parts[0]),
-		Details: command,
+		Details: clean_parts[1],
 		Timestamps: &client.Timestamps{
 			Start: &startTime,
 		},
 		LargeImage: icon,
 		LargeText:  iconText,
 		SmallImage: "bash",
-		SmallText:  "the bourne again shell",
+		SmallText:  "totally the bourne again shell",
 	})
 	if err != nil {
 		fmt.Println("couldn't publish discord rich status", err)
@@ -94,7 +95,7 @@ func main() {
 	}()
 
 	homedir, _ := os.UserHomeDir()
-	err = watcher.Add(filepath.Join(homedir, ".bash_history"))
+	err = watcher.Add(filepath.Join(homedir, ".zsh_history"))
 	if err != nil {
 		panic(err)
 	}

@@ -1,4 +1,4 @@
-module github.com/deletescape/bashcord
+module github.com/nepeat/zshcord
 
 go 1.17
 
