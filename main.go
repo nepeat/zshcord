@@ -32,7 +32,7 @@ func getIcon(command string) (string, string) {
 var startTime = time.Now()
 
 func updateStatus(command string) {
-	clean_parts := strings.Split(command, ";")
+	clean_parts := strings.SplitN(command, ";", 2)
 	parts := strings.Split(clean_parts[1], " ")
 	icon, iconText := getIcon(parts[0])
 	err := client.SetActivity(client.Activity{
